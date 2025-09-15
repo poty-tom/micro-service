@@ -6,6 +6,10 @@ import (
 	"fmt"
 	"log"
 	"net"
+
+	pb "github.com/poty-tom/catalogue/proto/book"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/reflection"
 )
 
 // Book 書籍情報の構造体
@@ -44,7 +48,7 @@ func getBook(i int32) Book {
 }
 
 type server struct {
-	pb.UniimplementedCatalogueServer
+	pb.UnimplementedCatalogueServer
 }
 
 func (s *server) GetBook(ctx context.Context, req *pb.GetBookRequest) (*pb.GetBookResponse, error) {
@@ -73,7 +77,7 @@ func main() {
 
 	s := grpc.NewServer()
 	pb.RegisterCatalogueServer(s, &server{})
-	reflection.Regster(s)
+	reflection.Register(s)
 	log.Printf("server listening at %v", lis.Addr())
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)

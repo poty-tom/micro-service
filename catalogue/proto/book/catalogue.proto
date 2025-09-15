@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package = "github.com/poty-tom/catalogue"
+option go_package = "github.com/poty-tom/catalogue";
 
 package book;
 
